@@ -8,13 +8,15 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     private TileType[] _tiles;
     private Dictionary<ushort, TileType> tiles = new Dictionary<ushort, TileType>();
+    private List<(Dictionary<(int, int), ushort[]>, ushort)> rules;
 
     private void Awake()
     {
         foreach(TileType tile in _tiles)
         {
-            tiles[tile.GetId()] = tile;
+            tiles[tile.id] = tile;
             tile.Awake();
+            rules.AddRange(tile.GetRules());
         }
         _tiles = null;
     }
@@ -24,17 +26,16 @@ public class MapGenerator : MonoBehaviour
 public class TileType
 {
     [SerializeField]
-    private ushort id;
-    public ushort GetId() => id;
+    public readonly ushort id;
     [SerializeField]
-    private string name = "None";
+    private readonly string name = "None";
     [SerializeField]
-    private float priority = 1;
-    public float GetPryority() => priority;
+    public readonly int priority = 1;
+    public readonly bool allowZeros;
     [SerializeField]
     private NeighborList[] _neighbors;
-    private List<Dictionary<(int, int), ushort[]>> neighbors = new List<Dictionary<(int, int), ushort[]>>();
-    public List<Dictionary<(int, int), ushort[]>> GetCloseNeighbors() => neighbors;
+    private List<(Dictionary<(int, int), ushort[]>, ushort)> rules = new List<(Dictionary<(int, int), ushort[]>, ushort)>();
+    public List<(Dictionary<(int, int), ushort[]>, ushort)> GetRules() => rules;
 
     public void Awake()
     {
@@ -45,7 +46,7 @@ public class TileType
             {
                 var[(neighbor.posX, neighbor.posY)] = neighbor.types;
             }
-            neighbors.Add(var);
+            rules.Add((var, id));
         }
         _neighbors = null;
     }
