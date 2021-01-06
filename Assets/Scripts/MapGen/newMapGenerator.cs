@@ -7,11 +7,10 @@ using TileSetNS;
 
 namespace GeneratorNS
 {
-    public class MapGenerator : MonoBehaviour
+    public class newMapGenerator : MonoBehaviour
     {
         [SerializeField]
         private TileRaw[] _tiles;
-        private Dictionary<ushort, TileRaw> tiles = new Dictionary<ushort, TileRaw>();
         private TileSet _tileSet = new TileSet();
         private List<(Dictionary<(int, int), ushort[]>, ushort)> rules = new List<(Dictionary<(int, int), ushort[]>, ushort)>();
 
@@ -21,15 +20,16 @@ namespace GeneratorNS
             {
                 _tileSet.AddTile(tile.ToTile());
             }
+            _tileSet.FinalInit();
             _tiles = null;
         }
 
         private void Start()
         {
-            var a = new Generator(rules, tiles).Generate(123);
+            var a = new Generator(_tileSet).Generate(123);
             foreach (var pair in a)
             {
-                var inst = Instantiate(tiles[pair.Value].pref, new Vector3((float)(pair.Key.Item1 + pair.Key.Item2) / 2, 1, pair.Key.Item2 * 0.866025404f) * 4, Quaternion.Euler(90, 0, 0));
+                var inst = Instantiate(_tileSet.Tiles[pair.Value].Pref, new Vector3((float)(pair.Key.Item1 + pair.Key.Item2) / 2, 1, pair.Key.Item2 * 0.866025404f) * 4, Quaternion.Euler(90, 0, 0));
                 if (Mathf.Abs(pair.Key.Item1) % 2 == 1)
                 {
                     var sr = inst.GetComponent<SpriteRenderer>();

@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -304,7 +305,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a88105be73ab34fca80b7754ffc685db, type: 3}
   m_Name: 
@@ -316,19 +317,50 @@ MonoBehaviour:
     _priority: 10
     _allowZeros: 1
     _allowAllZeros: 1
-    _neighbors:
-    - variation:
-      - posX: 1
-        posY: 0
-        types: 0000
+    _rules: []
   - _id: 2
     _pref: {fileID: 921315187414646798, guid: 40696c866aab2c4a88428fbb29933f3e, type: 3}
     name: 
     _priority: 2
     _allowZeros: 1
     _allowAllZeros: 1
-    _neighbors:
-    - variation:
+    _rules: []
+  - _id: 3
+    _pref: {fileID: 8404751115533770232, guid: f5baa53449c59d50ca0b28cf582b2676, type: 3}
+    name: 
+    _priority: 2
+    _allowZeros: 1
+    _allowAllZeros: 0
+    _rules: []
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5bc010079020f799c50c9a52fd4402, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tiles:
+  - _id: 1
+    _pref: {fileID: 1814307784532674878, guid: c4ec388cb7e5ce4e483ba9a095dee7aa, type: 3}
+    name: 
+    _priority: 1
+    _allowZeros: 1
+    _allowAllZeros: 1
+    _rules:
+    - rule: []
+  - _id: 2
+    _pref: {fileID: 921315187414646798, guid: 40696c866aab2c4a88428fbb29933f3e, type: 3}
+    name: 
+    _priority: 2
+    _allowZeros: 1
+    _allowAllZeros: 1
+    _rules:
+    - rule:
       - posX: 1
         posY: 0
         types: 0200
@@ -338,8 +370,8 @@ MonoBehaviour:
     _priority: 2
     _allowZeros: 1
     _allowAllZeros: 0
-    _neighbors:
-    - variation:
+    _rules:
+    - rule:
       - posX: 0
         posY: 1
         types: 0200

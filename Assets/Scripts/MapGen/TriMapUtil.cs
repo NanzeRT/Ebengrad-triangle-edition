@@ -5,20 +5,28 @@ using System.Linq;
 
 static class TriMapUtil
 {
-    public static (int, int) GetWorldPos ((int, int) pos1, (int, int) localPos)
+    public static (int, int) GetWorldPos ((int, int) origin, (int, int) localPos)
     {
-        if (Math.Abs(pos1.Item1) % 2 == 1)
-            return (pos1.Item1 - localPos.Item1, pos1.Item2 - localPos.Item2);
+        if (Math.Abs(origin.Item1) % 2 == 1)
+            return (origin.Item1 - localPos.Item1, origin.Item2 - localPos.Item2);
         else
-            return (pos1.Item1 + localPos.Item1, pos1.Item2 + localPos.Item2);
+            return (origin.Item1 + localPos.Item1, origin.Item2 + localPos.Item2);
     }
 
-    public static (int, int) GetLocalPos ((int, int) pos1, (int, int) pos2)
+    public static (int, int) GetWorldPosRev ((int, int) origin, (int, int) localPos)
     {
-        if (Math.Abs(pos1.Item1) % 2 == 1)
-            return (pos1.Item1 - pos2.Item1, pos1.Item2 - pos2.Item2);
+        if (Math.Abs(origin.Item1) % 2 == 1)
+            return (origin.Item1 + localPos.Item1, origin.Item2 + localPos.Item2);
         else
-            return (pos2.Item1 - pos1.Item1, pos2.Item2 - pos1.Item2);
+            return (origin.Item1 - localPos.Item1, origin.Item2 - localPos.Item2);
+    }
+
+    public static (int, int) GetLocalPos ((int, int) origin, (int, int) target)
+    {
+        if (Math.Abs(origin.Item1) % 2 == 1)
+            return (origin.Item1 - target.Item1, origin.Item2 - target.Item2);
+        else
+            return (target.Item1 - origin.Item1, target.Item2 - origin.Item2);
     }
 
     public static (int, int) Rot120 ((int, int) pos)
